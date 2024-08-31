@@ -7,13 +7,14 @@ import { createClient } from 'redis';
 class RedisClient {
   constructor() {
     this.connect = createClient();
-    this.connectionEstablished = true;
+    this.connectCheck;
+    this.connectionEstablished;
     this.connect.on('error', (err) => {
-      console.error('Redis client failed to connect:', err.message || err.toString());
-      this.connectionEstablished = false;
-    });
+      console.error(err)
+      this.connectCheck = false;
+    })
     this.connect.on('connect', () => {
-      this.connectionEstablished = true;
+      this.connectCheck = true;
     });
   }
 
@@ -22,7 +23,12 @@ class RedisClient {
    * @retun true if active else false
    */
   isAlive() {
-    return this.connectionEstablished;
+    if (this.connectCheck === false) {
+      this.connectionEstablished = false;
+      return this.connectionEstablished;
+      } else {
+      return this.connectionEstablished = true;
+      }
   }
 
   /**
