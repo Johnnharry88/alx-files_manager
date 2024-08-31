@@ -9,7 +9,7 @@ class RedisClient {
     this.connect = createClient();
     this.connectionEstablished = true;
     this.connect.on('error', (err) => {
-      console.log('Redis client failed to connect:', err.message || err.toString());
+      console.error('Redis client failed to connect:', err.message || err.toString());
       this.connectionEstablished = false;
     });
     this.connect.on('connect', () => {
