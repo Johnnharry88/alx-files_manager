@@ -6,15 +6,14 @@ import { createClient } from 'redis';
  */
 class RedisClient {
   constructor() {
+    this.connectCheck = true;
     this.connect = createClient();
-    this.connectCheck;
-    this.connectionEstablished;
     this.connect.on('error', (err) => {
-      console.error(err)
-      this.connectCheck = false;
-    })
+      console.error(err);
+      this.connectionEstablished = false;
+    });
     this.connect.on('connect', () => {
-      this.connectCheck = true;
+      this.connectionEstablished = true;
     });
   }
 
@@ -23,12 +22,11 @@ class RedisClient {
    * @retun true if active else false
    */
   isAlive() {
-    if (this.connectCheck === false) {
-      this.connectionEstablished = false;
-      return this.connectionEstablished;
-      } else {
-      return this.connectionEstablished = true;
-      }
+    if (this.connectionEstablished === false) {
+      this.connectCheck = false;
+      return this.connectCheck;
+    }
+    return this.connectCheck;
   }
 
   /**
