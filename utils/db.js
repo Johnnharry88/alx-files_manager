@@ -2,6 +2,7 @@
 
 const { MongoClient } = require('mongodb');
 const mongo = require('mongodb');
+const { hashPw } = require('./utils');
 
 class DBClient {
   constructor() {
@@ -33,8 +34,14 @@ class DBClient {
     return users;
   }
 
+  async createUser(email, password) {
+    const hashpw = hashPw(password);
+    const user = await this.client.db(this.database).collection('users').inserted({ email, password: hashpw });
+    return user;
+  }
+
   async getUser(email) {
-    const user = this.client.db(this.database).collection('users').find({ email }).toArray();
+    const user = await this.client.db(this.database).collection('users').find({ email }).toArray();
     if (!user.length) {
       return null;
     }
@@ -43,7 +50,7 @@ class DBClient {
 
   async getUserById(id) {
     const _id = new mongo.ObjectID(id);
-    const user = this.client.db(this.database).collection('users').find({ _id }).toArray();
+    const user = await this.client.db(this.database).collection('users').find({ _id }).toArray();
     if (!user.length) {
       return null;
     }
