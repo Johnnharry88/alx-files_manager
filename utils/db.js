@@ -1,8 +1,8 @@
 #!/usr/bin/node
-const { hashPw } = require('./utils');
 
 const { MongoClient } = require('mongodb');
 const mongo = require('mongodb');
+const { hashPw } = require('./utils');
 
 class DBClient {
   constructor() {
