@@ -1,8 +1,8 @@
 #!/usr/bin/node
+import hashPw from './utils';
 
 const { MongoClient } = require('mongodb');
 const mongo = require('mongodb');
-import hashPw from './utils';
 
 class DBClient {
   constructor() {

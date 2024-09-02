@@ -9,9 +9,8 @@ class AppController {
       redis: redisCli.isAlive(),
       db: dbCli.isAlive(),
     });
-      res.end();
+    res.end();
   }
-
 
   static async getStats(req, res) {
     const users = await dbCli.nbUsers();

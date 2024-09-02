@@ -1,5 +1,5 @@
 const { promisify } = require('util');
-const{ createClient } = require('redis');
+const { createClient } = require('redis');
 
 /**
  * Represents a Client connecting to a Redis Server
