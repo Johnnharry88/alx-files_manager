@@ -5,11 +5,13 @@ const dbCli = require('../utils/db');
 
 class AppController {
   static getStatus(req, res) {
-    if (redisCli.isAlive() && dbCli.isAlive()) {
-      res.json({ redis: true, db: true });
+    res.status(200).json({
+      redis: redisCli.isAlive(),
+      db: dbCli.isAlive(),
+    });
       res.end();
-    }
   }
+
 
   static async getStats(req, res) {
     const users = await dbCli.nbUsers();

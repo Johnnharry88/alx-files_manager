@@ -10,5 +10,5 @@ xerva.use(exp.json());
 xerva.use(route);
 
 xerva.listen(port, () => {
-  console.log(`The server is running on port: ${port}`);
+  console.log(`Server is running on port ${port}`);
 });

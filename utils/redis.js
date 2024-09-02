@@ -1,5 +1,5 @@
-import { promisify } from 'util';
-import { createClient } from 'redis';
+const { promisify } = require('util');
+const{ createClient } = require('redis');
 
 /**
  * Represents a Client connecting to a Redis Server
@@ -60,5 +60,5 @@ class RedisClient {
   }
 }
 
-export const redisClient = new RedisClient();
-export default redisClient;
+const redisClient = new RedisClient();
+module.exports = redisClient;
