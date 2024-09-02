@@ -8,6 +8,6 @@ const route = express.Router();
 
 route.get('/status', AppController.getStatus);
 route.get('/stats', AppController.getStats);
-route.get('/users', UserController.postNew);
+route.post('/users', UserController.postNew);
 
 module.exports = route;

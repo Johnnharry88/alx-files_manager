@@ -1,5 +1,5 @@
 #!/usr/bin/node
-import hashPw from './utils';
+const { hashPw } = require('./utils');
 
 const { MongoClient } = require('mongodb');
 const mongo = require('mongodb');
@@ -36,7 +36,7 @@ class DBClient {
 
   async createUser(email, password) {
     const hashpw = hashPw(password);
-    const user = await this.client.db(this.database).collection('users').inserted({ email, password: hashpw });
+    const user = await this.client.db(this.database).collection('users').insertOne({ email, password: hashpw });
     return user;
   }
 

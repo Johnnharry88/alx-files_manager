@@ -2,4 +2,4 @@
 
 const passhasher = require('sha1');
 
-export const hashPw = (passwd) => passhaasher(passwd);
+export const hashPw = (passwd) => passhasher(passwd);

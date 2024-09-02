@@ -4,7 +4,8 @@ const dbCli = require('../utils/db');
 
 class UsersController {
   static async postNew(req, res) {
-    const { email, password } = req.body;
+    const email = req.body ? req.body.email : null;
+    const password = req.body ? req.body.password : null;
     if (!email) {
       res.status(400).json({ error: 'Missing email' });
       res.end();
@@ -22,7 +23,7 @@ class UsersController {
       return;
     }
     const user = await dbCli.createUser(email, password);
-    const id = `${user.inserted}`;
+    const id = `${user.insertedId}`;
     res.status(201).json({ id, email });
     res.end();
   }
@@ -32,5 +33,6 @@ class UsersController {
     res.status(200).json({ email: user.email, id: user._id.toString() });
   }
 }
+
 
 module.exports = UsersController;
