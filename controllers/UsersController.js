@@ -16,7 +16,7 @@ class UsersController {
       res.end();
       return;
     }
-    const existedUser = await dbCli.userExist(email);
+    const existedUser = await dbCli.getUser(email);
     if (existedUser) {
       res.status(400).json({ error: 'Already exist' });
       res.end();
