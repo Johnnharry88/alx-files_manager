@@ -29,7 +29,7 @@ class UsersController {
   }
 
   static async getMe(req, res) {
-    const token = req,headers['x-token'];
+    const token = req.headers['X-Token'];
     if (!token) {
       res.status(401).json({ error: 'Unauthorized' });
       res.end();
@@ -42,12 +42,12 @@ class UsersController {
       return;
     }
     const user = await dbCli.getUserById(id);
-    if (!user) [
+    if (!user) {
       res.status(401).json({ error: 'Unauthorized' });
       res.end();
       return;
     }
-  res.json({ id: user._id, email: user.email }).end();
+    res.json({ id: user._id, email: user.email }).end();
   }
 }
 
