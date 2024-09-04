@@ -1,17 +1,22 @@
-#!/usr/bin/node
+import express from 'express';
+import AppController from '../controllers/AppController';
+import UsersController from '../controllers/UsersController';
+import AuthController from '../controllers/AuthController';
+import FilesController from '../controllers/FilesController';
 
-const express = require('express');
-const AppController = require('../controllers/AppController');
-const UserController = require('../controllers/UsersController');
-const AuthController = require('../controllers/AuthController');
+const rout = express.Router();
 
-const route = express.Router();
+// the get Routes
+rout.get('/status', AppController.getStatus);
+rout.get('/stats', AppController.getStats);
+rout.get('/connect', AuthController.getConnect);
+rout.get('/disconnect', AuthController.getDisconnect);
+rout.get('/users/me', UsersController.getMe);
+rout.get('/files/:id', FilesController.getShow);
+rout.get('/files', FilesController.getIndex);
 
-route.get('/status', AppController.getStatus);
-route.get('/stats', AppController.getStats);
-route.post('/users', UserController.postNew);
-route.get('/connect', AuthController.getConnect);
-route.get('/disconnect', AuthController.getDisconnect);
-route.get('/users/me', UserController.getMe);
+// the post Routes
+rout.post('/users', UsersController.postNew);
+rout.post('/files', FilesController.postUpload);
 
-module.exports = route;
+module.exports = router;
