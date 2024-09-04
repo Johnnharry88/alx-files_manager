@@ -13,16 +13,16 @@ export const getAuthHeader = (req) => {
 };
 
 export const tokenExtract = (authHd) => {
-  const tokTyoe = authHd.substring(0, 6);
-  if (tokType !== 'Basic ') {
+  const tokTyoe = authHd.split(' ')[1];
+  if (tokType) {
     return null;
   }
-  return authHd.substring(6);
+  return tokType;
 };
 
 export const tokDecoder = (token) => {
-  const tokdecode = Buffer.from(tok, 'base64').toString('utf8');
-  if (!tokdecode.includes(':')) {
+  const tokdecode = Buffer.from(tok, 'base64').toString('utf-8');
+  if (!tokdecode) {
     return null;
   }
   return tokdecode;
@@ -33,5 +33,5 @@ export const getCred = (tokdecode) => {
   if (!email || !password) {
     return null;
   }
-  return { email. password };
+  return { email, password };
 };

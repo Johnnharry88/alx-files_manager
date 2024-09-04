@@ -4,13 +4,13 @@ const { v4 } = require('uuid');
 const dbCli = require('../utils/db');
 const redisCli = require('../utils/redis');
 const { hashPw, getAuthHeader, tokenExtract } = require('../utils/utils');
-const { tokDeconder, getCred } = require('../utils/utils');
+const { tokDecoder, getCred } = require('../utils/utils');
 
 class AuthController {
   static async getConnect(req, res) {
     const authHd = getAuthHeader(req);
     if (!authHd) {
-      res.status(401).json({ error: 'Unauthorized' })
+      res.status(401).json({ error: 'Unauthorized' });
       res.end();
       return;
     }
@@ -39,7 +39,7 @@ class AuthController {
       return;
     }
     const access = v4();
-    await redisCli.set(`auth_${access}`, user._id.toString('utf8'), 60 * 60 * 24);
+    await redisCli.set(`auth_${access}`, user._id.toString(), 60 * 60 * 24);
     res.json({ token: access });
     res.end();
   }
@@ -47,47 +47,18 @@ class AuthController {
   static async getDisconnect(req, res) {
     const tok = req.headers['x-token'];
     if (!tok) {
-      res.status(401).json({  error: 'Unauthorized' });
+      res.status(401).json({ error: 'Unauthorized' });
       res.end();
       return;
     }
     const id = await redisCli.get(`auth_${tok}`);
     if (!id) {
-      res.status(401).json({ error: 'Unauthorized' });
-      res.end();
-      return;
-    }
-    const user = await dbCli.getUserBy(id);
-    if (!user) {
       res.status(401).json({ error: 'Unauthorized' });
       res.end();
       return;
     }
     await redisCli.del(`auth_${tok}`);
     res.status(204);
-    res.end();
-  }
-
-  static async getMe(req, res) {
-    const tok = req.headers['x-token'];
-    if (!tok) {
-      res.status(401).json({ error: 'Unauthorized' });
-      res.end();
-      return;
-    }
-    const id = await redisCli.get(`auth_${tok}`);
-    if (!id) {
-      res.status(401).json({ error: 'Unauthorized' });
-      res.end();
-      return;
-    }
-    const user = await (dbCli.getUserBy(id);
-    if (!user) {
-      res.status(401).json({ error: 'Unauthorized' });
-      res.end();
-      return;
-    }
-    res.json({ id:user._id, email: user.email })
     res.end();
   }
 }

@@ -11,8 +11,7 @@ route.get('/status', AppController.getStatus);
 route.get('/stats', AppController.getStats);
 route.post('/users', UserController.postNew);
 route.get('/connect', AuthController.getConnect);
-route.get('/connect', AuthController.getConneect);
 route.get('/disconnect', AuthController.getDisconnect);
-route.get('/users/me', AuthController.getMe);
+route.get('/users/me', UserController.getMe);
 
 module.exports = route;
