@@ -8,18 +8,18 @@ class UsersController {
     const email = req.body ? req.body.email : null;
     const password = req.body ? req.body.password : null;
     if (!email) {
-      res.status(400).json({ error: 'Missing email' });
+      res.status(401).json({ error: 'Missing email' });
       res.end();
       return;
     }
     if (!password) {
-      res.status(400).json({ error: 'Missing password' });
+      res.status(401).json({ error: 'Missing password' });
       res.end();
       return;
     }
     const existedUser = await dbCli.getUser(email);
     if (existedUser) {
-      res.status(400).json({ error: 'Already exist' });
+      res.status(401).json({ error: 'Already exist' });
       res.end();
       return;
     }
