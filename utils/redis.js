@@ -6,15 +6,18 @@ const { promisify } = require('util');
 class RedisClient {
   constructor() {
     this.client = createClient();
-    this.client.on('error', (err) => console.log(err));
-    this.connected = false;
+    this.client.on('error', (err) => {
+      console.log(err);
+      this.connCheck = false;
+    });
+    this.connected = true;
     this.client.on('connect', () => {
-      this.connected = true;
+      this.connCheck = true;
     });
   }
 
   isAlive() {
-    return this.connected;
+    return this.connCheck;
   }
 
   async get(key) {
