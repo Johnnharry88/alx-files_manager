@@ -18,30 +18,26 @@ class DBClient {
   }
 
   isAlive() {
-    return this.connected;
+    return this.connCheck;
   }
 
   async nbUsers() {
-    await this.client.connect();
     const users = await this.client.db(this.database).collection('users').countDocuments();
     return users;
   }
 
   async nbFiles() {
-    await this.client.connect();
     const users = await this.client.db(this.database).collection('files').countDocuments();
     return users;
   }
 
   async createUser(email, password) {
     const hashedPwd = pwdHashed(password);
-    await this.client.connect();
     const user = await this.client.db(this.database).collection('users').insertOne({ email, password: hashedPwd });
     return user;
   }
 
   async getUser(email) {
-    await this.client.connect();
     const user = await this.client.db(this.database).collection('users').find({ email }).toArray();
     if (!user.length) {
       return null;
@@ -51,7 +47,6 @@ class DBClient {
 
   async getUserById(id) {
     const _id = new mongo.ObjectID(id);
-    await this.client.connect();
     const user = await this.client.db(this.database).collection('users').find({ _id }).toArray();
     if (!user.length) {
       return null;
