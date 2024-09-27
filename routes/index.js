@@ -19,4 +19,4 @@ rout.get('/files', FilesController.getIndex);
 rout.post('/users', UsersController.postNew);
 rout.post('/files', FilesController.postUpload);
 
-module.exports = router;
+module.exports = rout;
