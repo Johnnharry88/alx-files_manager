@@ -15,7 +15,7 @@ class AuthController {
     }
     const token = tokenExtract(authHd);
     if (!token) {
-      res.status(401).json({ error: 'Unauthprized' });
+      res.status(401).json({ error: 'Unauthorized' });
       res.end();
       return;
     }
@@ -44,7 +44,7 @@ class AuthController {
   }
 
   static async getDisconnect(req, res) {
-    const token = req.headers['X-Token'];
+    const token = req.header('X-Token');
     if (!token) {
       res.status(401).json({ error: 'Unathorized' });
       res.end();
