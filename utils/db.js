@@ -37,6 +37,13 @@ class DBClient {
     return user;
   }
 
+  async createFileDate(fileDocs) {
+    const fileSave = await tis.client.db(this.database).collection('files').insertOne(fileDocs);
+    fileId = fileSave.insertedId;
+    fileDocs._id = fileId;
+    return fileDocs;
+  }
+
   async getUser(email) {
     const user = await this.client.db(this.database).collection('users').find({ email }).toArray();
     if (!user.length) {
@@ -60,6 +67,10 @@ class DBClient {
       return true;
     }
     return false;
+  }
+
+  async close() {
+    await this.mongoClient.close();
   }
 }
 

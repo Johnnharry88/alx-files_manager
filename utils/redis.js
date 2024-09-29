@@ -35,6 +35,10 @@ class RedisClient {
     const delAsync = promisify(this.client.del).bind(this.client);
     await delAsync(key);
   }
+
+  async close() {
+    this.redisClient.quit();
+  }
 }
 
 const redisClient = new RedisClient();

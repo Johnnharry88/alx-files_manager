@@ -1,17 +1,17 @@
-import redisClient from './redis';
+/*import redisClient from './redis';
 import dbClient from './db';
 
 /**
  * Module with user utilities
  */
-const userUtils = {
+/*const userUtils = {
   /**
    * Gets a user id and key of redis from request
    * @request {request_object} express request obj
    * @return {object} object containing userId and
    * redis key for token
    */
-  async getUserIdAndKey(request) {
+/*  async getUserIdAndKey(request) {
     const obj = { userId: null, key: null };
 
     const xToken = request.header('X-Token');
@@ -31,10 +31,10 @@ const userUtils = {
    * user
    * @return {object} user document object
    */
-  async getUser(query) {
+  /*async getUser(query) {
     const user = await dbClient.usersCollection.findOne(query);
     return user;
   },
 };
 
-export default userUtils;
+export default userUtil**/
